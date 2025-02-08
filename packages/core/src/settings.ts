@@ -147,6 +147,14 @@ elizaLogger.info("Parsed settings:", {
         settings.OLLAMA_EMBEDDING_MODEL || "mxbai-embed-large",
 });
 
+// Mira Network Settings
+export const MIRA_API_KEY = process.env.MIRA_API_KEY || "";
+export const MIRA_API_URL = process.env.MIRA_API_URL || "https://apis.mira.network";
+export const SMALL_MIRA_MODEL = process.env.SMALL_MIRA_MODEL;
+export const MEDIUM_MIRA_MODEL = process.env.MEDIUM_MIRA_MODEL;
+export const LARGE_MIRA_MODEL = process.env.LARGE_MIRA_MODEL;
+export const EMBEDDING_MIRA_MODEL = process.env.EMBEDDING_MIRA_MODEL;
+
 export default settings;
 
 // Add this function to parse namespaced settings

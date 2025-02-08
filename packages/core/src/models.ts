@@ -1120,35 +1120,71 @@ export const models: Models = {
         },
     },
     [ModelProviderName.ATOMA]: {
-        endpoint: settings.ATOMA_API_URL || "https://api.atoma.network/v1",
+        endpoint: settings.ATOMA_API_URL || "https://api.atoma.ai",
         model: {
             [ModelClass.SMALL]: {
-                name:
-                    settings.SMALL_ATOMA_MODEL ||
-                    "meta-llama/Llama-3.3-70B-Instruct",
+                name: settings.SMALL_ATOMA_MODEL || "atoma-small",
                 stop: [],
                 maxInputTokens: 128000,
                 maxOutputTokens: 8192,
+                frequency_penalty: 0.0,
+                presence_penalty: 0.0,
                 temperature: 0.7,
             },
             [ModelClass.MEDIUM]: {
-                name:
-                    settings.MEDIUM_ATOMA_MODEL ||
-                    "meta-llama/Llama-3.3-70B-Instruct",
+                name: settings.MEDIUM_ATOMA_MODEL || "atoma-medium",
                 stop: [],
                 maxInputTokens: 128000,
                 maxOutputTokens: 8192,
+                frequency_penalty: 0.0,
+                presence_penalty: 0.0,
                 temperature: 0.7,
             },
             [ModelClass.LARGE]: {
-                name:
-                    settings.LARGE_ATOMA_MODEL ||
-                    "meta-llama/Llama-3.3-70B-Instruct",
+                name: settings.LARGE_ATOMA_MODEL || "atoma-large",
                 stop: [],
                 maxInputTokens: 128000,
                 maxOutputTokens: 8192,
+                frequency_penalty: 0.0,
+                presence_penalty: 0.0,
                 temperature: 0.7,
             },
+        },
+    },
+    [ModelProviderName.MIRA]: {
+        endpoint: settings.MIRA_API_URL || "https://apis.mira.network",
+        model: {
+            [ModelClass.SMALL]: {
+                name: settings.SMALL_MIRA_MODEL || "deepseek-r1",
+                stop: [],
+                maxInputTokens: 128000,
+                maxOutputTokens: 8192,
+                frequency_penalty: 0.0,
+                presence_penalty: 0.0,
+                temperature: 0.7,
+            },
+            [ModelClass.MEDIUM]: {
+                name: settings.MEDIUM_MIRA_MODEL || "gpt-4o",
+                stop: [],
+                maxInputTokens: 128000,
+                maxOutputTokens: 8192,
+                frequency_penalty: 0.0,
+                presence_penalty: 0.0,
+                temperature: 0.7,
+            },
+            [ModelClass.LARGE]: {
+                name: settings.LARGE_MIRA_MODEL || "gpt-4o",
+                stop: [],
+                maxInputTokens: 128000,
+                maxOutputTokens: 8192,
+                frequency_penalty: 0.0,
+                presence_penalty: 0.0,
+                temperature: 0.7,
+            },
+            [ModelClass.EMBEDDING]: {
+                name: settings.EMBEDDING_MIRA_MODEL || "text-embedding-3-small",
+                dimensions: 1536
+            }
         },
     },
 };
