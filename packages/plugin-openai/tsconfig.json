@@ -6,13 +6,21 @@
         "outDir": "dist",
         "rootDir": "src",
         "strict": true,
-        "esModuleInterop": true
+        "esModuleInterop": true,
+        "composite": true,
+        "paths": {
+            "@elizaos/core": ["../core/src"]
+        }
     },
     "include": [
-        "src/**/*"
+        "src/**/*",
+        "../core/src/**/*"
     ],
     "exclude": [
         "node_modules",
         "dist"
+    ],
+    "references": [
+        { "path": "../core" }
     ]
 }

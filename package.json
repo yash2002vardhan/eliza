@@ -1,5 +1,7 @@
 {
   "name": "eliza",
+  "version": "1.0.0",
+  "description": "Test environment for Mira Network integration",
   "scripts": {
     "format": "biome format --write .",
     "lint": "biome lint .",
@@ -22,7 +24,8 @@
     "docker": "pnpm docker:build && pnpm docker:run && pnpm docker:bash",
     "test": "bash ./scripts/test.sh",
     "smokeTests": "bash ./scripts/smokeTests.sh",
-    "integrationTests": "bash ./scripts/integrationTests.sh"
+    "integrationTests": "bash ./scripts/integrationTests.sh",
+    "test:mira": "node test-mira.js"
   },
   "devDependencies": {
     "@biomejs/biome": "^1.9.4",
@@ -40,7 +43,10 @@
     "typescript": "5.6.3",
     "viem": "2.21.58",
     "vite": "5.4.12",
-    "vitest": "3.0.5"
+    "vitest": "3.0.5",
+    "ts-node": "^10.9.2",
+    "@types/node": "^20.11.19",
+    "@types/node-fetch": "^2.6.11"
   },
   "pnpm": {
     "overrides": {
@@ -81,7 +87,11 @@
     "optional": "0.1.4",
     "pnpm": "9.15.0",
     "sharp": "0.33.5",
-    "zod": "3.24.1"
+    "zod": "3.24.1",
+    "@elizaos/core": "file:packages/core",
+    "dotenv": "^16.4.7",
+    "node-fetch": "^2.6.7",
+    "@mira-network/node-sdk": "file:/Users/yashvardhan/Documents/Desktop_Folders/Mira_Labs/mira-network/sdk-node"
   },
   "packageManager": "pnpm@9.15.0",
   "workspaces": [

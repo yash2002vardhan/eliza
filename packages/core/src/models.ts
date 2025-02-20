@@ -1103,7 +1103,7 @@ export const models: Models = {
             [ModelClass.LARGE]: {
                 name: settings.LARGE_BEDROCK_MODEL || "amazon.nova-pro-v1:0",
                 maxInputTokens: 128000,
-                maxOutputTokens: 5120,
+                maxOutputTokens: 5192,
                 frequency_penalty: 0.0,
                 presence_penalty: 0.0,
                 temperature: 0.6,
@@ -1149,6 +1149,38 @@ export const models: Models = {
                 maxOutputTokens: 8192,
                 temperature: 0.7,
             },
+        },
+    },
+    [ModelProviderName.MIRA_NETWORK]: {
+        endpoint: settings.MIRA_API_URL || 'https://apis.mira.network',
+        model: {
+            [ModelClass.SMALL]: {
+                name: settings.SMALL_MIRA_MODEL || 'claude-3.5-sonnet',
+                stop: [],
+                maxInputTokens: 128000,
+                maxOutputTokens: 8192,
+                frequency_penalty: 0.0,
+                presence_penalty: 0.0,
+                temperature: 0.7,
+            },
+            [ModelClass.MEDIUM]: {
+                name: settings.MEDIUM_MIRA_MODEL || 'claude-3.5-sonnet',
+                stop: [],
+                maxInputTokens: 128000,
+                maxOutputTokens: 8192,
+                frequency_penalty: 0.0,
+                presence_penalty: 0.0,
+                temperature: 0.7,
+            },
+            [ModelClass.LARGE]: {
+                name: settings.LARGE_MIRA_MODEL || 'claude-3.5-sonnet',
+                stop: [],
+                maxInputTokens: 128000,
+                maxOutputTokens: 8192,
+                frequency_penalty: 0.0,
+                presence_penalty: 0.0,
+                temperature: 0.7,
+            }
         },
     },
 };

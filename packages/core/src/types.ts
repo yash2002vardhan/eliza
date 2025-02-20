@@ -233,6 +233,7 @@ export type Models = {
     [ModelProviderName.INFERA]: Model;
     [ModelProviderName.BEDROCK]: Model;
     [ModelProviderName.ATOMA]: Model;
+    [ModelProviderName.MIRA_NETWORK]: Model;
 };
 
 /**
@@ -272,6 +273,7 @@ export enum ModelProviderName {
     INFERA = "infera",
     BEDROCK = "bedrock",
     ATOMA = "atoma",
+    MIRA_NETWORK = "mira_network"
 }
 
 /**
@@ -1281,6 +1283,7 @@ export interface IAgentRuntime {
     actions: Action[];
     evaluators: Evaluator[];
     plugins: Plugin[];
+    miraClient?: any; // Mira Network client instance
 
     fetch?: typeof fetch | null;
 
@@ -1524,6 +1527,7 @@ export enum ServiceType {
     GOPLUS_SECURITY = "goplus_security",
     WEB_SEARCH = "web_search",
     EMAIL_AUTOMATION = "email_automation",
+    MIRA_NETWORK = "mira_network",
 }
 
 export enum LoggingLevel {

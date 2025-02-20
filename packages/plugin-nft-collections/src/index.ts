@@ -36,7 +36,7 @@ function createNFTCollectionsPlugin(): Plugin {
               ttl: config.caching.ttl,
               maxSize: config.caching.maxSize,
           })
-        : null;
+        : undefined;
 
     // Initialize reusable RateLimiter if rate limiting is enabled
     const rateLimiter = config.security?.rateLimit?.enabled
@@ -44,7 +44,7 @@ function createNFTCollectionsPlugin(): Plugin {
               maxRequests: config.security.rateLimit.maxRequests,
               windowMs: config.security.rateLimit.windowMs,
           })
-        : null;
+        : undefined;
     const reservoirService = new ReservoirService({
         cacheManager,
         rateLimiter,

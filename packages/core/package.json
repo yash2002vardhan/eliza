@@ -70,6 +70,7 @@
         "@ai-sdk/openai": "1.1.9",
         "@ai-sdk/amazon-bedrock": "1.1.0",
         "@fal-ai/client": "1.2.0",
+        "@mira-network/node-sdk": "file:/Users/yashvardhan/Documents/Desktop_Folders/Mira_Labs/mira-network/sdk-node",
         "@tavily/core": "^0.0.2",
         "@types/uuid": "10.0.0",
         "ai": "4.1.16",

@@ -16,7 +16,12 @@
             "es2020",
             "dom"
         ],
-        "moduleResolution": "node"
+        "moduleResolution": "node",
+        "composite": true,
+        "declarationMap": true,
+        "paths": {
+            "@elizaos/core": ["../../packages/core/dist"]
+        }
     },
     "include": [
         "src/**/*"
@@ -24,5 +29,8 @@
     "exclude": [
         "node_modules",
         "dist"
+    ],
+    "references": [
+        { "path": "../core" }
     ]
 }

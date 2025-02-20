@@ -540,6 +540,12 @@ export function getTokenForProvider(
                 character.settings?.secrets?.OPENAI_API_KEY ||
                 settings.OPENAI_API_KEY
             );
+        case ModelProviderName.MIRA_NETWORK:
+            const miraToken = character.settings?.secrets?.MIRA_API_KEY || process.env.MIRA_API_KEY;
+            if (!miraToken) {
+                throw new Error("MIRA_API_KEY is required but not found in character settings or environment variables");
+            }
+            return miraToken;
         case ModelProviderName.ETERNALAI:
             return (
                 character.settings?.secrets?.ETERNALAI_API_KEY ||

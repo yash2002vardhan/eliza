@@ -54,6 +54,7 @@ import { fal } from "@fal-ai/client";
 
 import BigNumber from "bignumber.js";
 import { createPublicClient, http } from "viem";
+import { MiraClient } from '@mira-network/node-sdk';
 
 type Tool = CoreTool<any, any>;
 type StepResult = AIStepResult<any>;
@@ -1290,6 +1291,65 @@ export async function generateText({
                 break;
             }
 
+            case ModelProviderName.MIRA_NETWORK: {
+                elizaLogger.debug("Initializing Mira Network model.");
+                
+                const baseUrl = runtime.character.modelEndpointOverride || getEndpoint(provider);
+                const modelSettings = getModelSettings(provider, modelClass);
+                
+                // Format messages for Mira Network API
+                const messages = [{
+                    role: "system",
+                    content: runtime.character.system ?? settings.SYSTEM_PROMPT ?? ""
+                }, {
+                    role: "user",
+                    content: context
+                }];
+
+                // Ensure baseUrl has /v1 prefix for the chat completions endpoint
+                const apiUrl = `${baseUrl}/v1/chat/completions`;
+
+                elizaLogger.debug(`Making request to Mira Network API: ${apiUrl}`);
+
+                const requestBody = {
+                    model: modelSettings.name,
+                    messages: messages,
+                    temperature: modelSettings.temperature,
+                    max_tokens: modelSettings.maxOutputTokens,
+                    frequency_penalty: modelSettings.frequency_penalty,
+                    presence_penalty: modelSettings.presence_penalty,
+                    stream: false
+                };
+
+                elizaLogger.debug("Request body:", requestBody);
+
+                const apiResponse = await fetch(apiUrl, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${apiKey}`
+                    },
+                    body: JSON.stringify(requestBody)
+                });
+
+                if (!apiResponse.ok) {
+                    const errorData = await apiResponse.json();
+                    elizaLogger.error("Mira Network API error:", {
+                        status: apiResponse.status,
+                        statusText: apiResponse.statusText,
+                        error: errorData
+                    });
+                    throw new Error(`Mira Network API error: ${apiResponse.status} - ${JSON.stringify(errorData)}`);
+                }
+
+                const data = await apiResponse.json();
+                elizaLogger.debug("Received response from Mira Network:", data);
+                
+                response = data.choices[0].message.content;
+                elizaLogger.debug("Successfully received response from Mira Network model");
+                break;
+            }
+
             default: {
                 const errorMessage = `Unsupported provider: ${provider}`;
                 elizaLogger.error(errorMessage);
@@ -2177,9 +2237,6 @@ export async function handleProvider(
         runtime,
         context,
         modelClass,
-        //verifiableInference,
-        //verifiableInferenceAdapter,
-        //verifiableInferenceOptions,
     } = options;
     switch (provider) {
         case ModelProviderName.OPENAI:
@@ -2219,6 +2276,8 @@ export async function handleProvider(
             return await handleDeepSeek(options);
         case ModelProviderName.LIVEPEER:
             return await handleLivepeer(options);
+        case ModelProviderName.MIRA_NETWORK:
+            return await handleMiraNetwork(options);
         default: {
             const errorMessage = `Unsupported provider: ${provider}`;
             elizaLogger.error(errorMessage);
@@ -2565,6 +2624,75 @@ async function handleLivepeer({
         mode,
         ...modelOptions,
     });
+}
+
+/**
+ * Handles object generation for Mira Network models.
+ *
+ * @param {ProviderOptions} options - Options specific to Mira Network.
+ * @returns {Promise<GenerateObjectResult<unknown>>} - A promise that resolves to generated objects.
+ */
+async function handleMiraNetwork({
+    model,
+    apiKey,
+    schema,
+    schemaName,
+    schemaDescription,
+    mode = "json",
+    modelOptions,
+    provider,
+    runtime,
+    modelClass,
+    context,
+}: ProviderOptions): Promise<GenerateObjectResult<unknown>> {
+    elizaLogger.debug("Initializing Mira Network model.");
+    
+    const baseUrl = runtime.character.modelEndpointOverride || getEndpoint(provider);
+    const modelSettings = getModelSettings(provider, modelClass);
+    
+    // Format messages for Mira Network API
+    const messages = [{
+        role: "system",
+        content: runtime.character.system ?? settings.SYSTEM_PROMPT ?? ""
+    }, {
+        role: "user",
+        content: context
+    }];
+
+    // Ensure baseUrl has /v1 prefix for the chat completions endpoint
+    const apiUrl = `${baseUrl}/v1/chat/completions`;
+
+    const apiResponse = await fetch(apiUrl, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${apiKey}`
+        },
+        body: JSON.stringify({
+            model: modelSettings.name,
+            model_provider: {
+                base_url: "",
+                api_key: ""
+            },
+            messages: messages,
+            stream: false,
+            temperature: modelSettings.temperature,
+            max_tokens: modelSettings.maxOutputTokens,
+            frequency_penalty: modelSettings.frequency_penalty,
+            presence_penalty: modelSettings.presence_penalty
+        })
+    });
+
+    if (!apiResponse.ok) {
+        const errorData = await apiResponse.json();
+        throw new Error(`Mira Network API error: ${apiResponse.status} - ${JSON.stringify(errorData)}`);
+    }
+
+    const data = await apiResponse.json();
+    return {
+        object: data.choices[0].message.content,
+        response: data
+    } as GenerateObjectResult<unknown>;
 }
 
 // Add type definition for Together AI response
