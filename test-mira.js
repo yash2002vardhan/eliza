@@ -4,7 +4,7 @@ async function testMiraAPI() {
   try {
     console.log('Testing Mira API...');
 
-    const apiKey = 'sk-mira-3db7f5199996b5e465b14399a46ec6b9cfa83c42806b491c';
+    const apiKey = 'YOUR_MIRA_API_KEY_HERE';
     const model = 'llama-3.1-8b-instruct';
     const prompt = 'Hello, how are you?';
 
