@@ -1,0 +1,24 @@
+{
+  "name": "@elizaos/plugin-mira",
+  "version": "1.0.0",
+  "type": "module",
+  "main": "dist/index.js",
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "dependencies": {
+    "@elizaos/core": "^1.0.0-beta.34",
+    "undici": "^7.8.0"
+  },
+  "scripts": {
+    "build": "tsup"
+  },
+  "agentConfig": {
+    "pluginType": "elizaos:plugin:1.0.0",
+    "pluginParameters": {
+      "MIRA_API_KEY": {
+        "type": "string",
+        "description": "API key for Mira service"
+      }
+    }
+  }
+}

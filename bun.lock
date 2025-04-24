@@ -6,6 +6,7 @@
       "dependencies": {
         "@anthropic-ai/sdk": "^0.39.0",
         "@babel/generator": "^7.26.10",
+        "@elizaos/plugin-mira": "workspace:*",
         "@elizaos/plugin-openai": "workspace:*",
         "@hapi/shot": "^6.0.1",
         "@types/hapi": "^18.0.14",
@@ -95,6 +96,7 @@
       "dependencies": {
         "@electric-sql/pglite": "^0.2.17",
         "@elizaos/core": "^1.0.0-beta.34",
+        "@elizaos/plugin-bootstrap": "workspace:*",
         "socket.io": "^4.8.1",
         "zod": "3.24.2",
       },
@@ -465,6 +467,14 @@
       },
       "peerDependencies": {
         "whatwg-url": "7.1.0",
+      },
+    },
+    "packages/plugin-mira": {
+      "name": "@elizaos/plugin-mira",
+      "version": "1.0.0",
+      "dependencies": {
+        "@elizaos/core": "^1.0.0-beta.34",
+        "undici": "^7.8.0",
       },
     },
     "packages/plugin-ollama": {
@@ -1413,6 +1423,8 @@
     "@elizaos/plugin-groq": ["@elizaos/plugin-groq@workspace:packages/plugin-groq"],
 
     "@elizaos/plugin-local-ai": ["@elizaos/plugin-local-ai@workspace:packages/plugin-local-ai"],
+
+    "@elizaos/plugin-mira": ["@elizaos/plugin-mira@workspace:packages/plugin-mira"],
 
     "@elizaos/plugin-ollama": ["@elizaos/plugin-ollama@workspace:packages/plugin-ollama"],
 

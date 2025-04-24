@@ -7,19 +7,23 @@
     "esModuleInterop": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
-    "allowImportingTsExtensions": true,
-    "noEmit": true,
+    "allowImportingTsExtensions": false,
+    "noEmit": false,
     "allowSyntheticDefaultImports": true,
     "baseUrl": ".",
     "paths": {
       "@elizaos/core": ["packages/core/src"],
       "@elizaos/core/*": ["packages/core/src/*"]
-    }
+    },
+    "composite": true
   },
   "files": [],
   "references": [
     {
       "path": "packages/core"
+    },
+    {
+      "path": "packages/plugin-mira"
     }
   ]
 }
